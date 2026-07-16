@@ -33,21 +33,21 @@
   table{width:100%;border-collapse:separate;border-spacing:6px;table-layout:fixed;margin-top:8px}
   th{font-size:12px;font-weight:700;color:var(--muted);padding:4px 0}
   th.sat{color:var(--sat)} th.sun{color:var(--sun)}
-  td{vertical-align:top;height:120px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
+  td{vertical-align:top;height:175px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
   td.empty{background:transparent;border:1px dashed var(--line)}
   td.today{border:2px solid var(--todayline);background:var(--today)}
   .dnum{position:absolute;top:5px;left:8px;font-size:12px;font-weight:800;color:var(--muted);z-index:2}
   td.today .dnum{color:var(--accent)}
   .sat .dnum{color:var(--sat)} .sun .dnum{color:var(--sun)}
   .photo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#00000006}
-  .photo img{width:100%;height:100%;object-fit:cover}
+  .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;cursor:zoom-in}
   .photo .ph{font-size:10px;color:var(--muted);text-align:center;line-height:1.5;padding:0 4px}
   .ex{position:absolute;bottom:0;left:0;right:0;height:22px;display:flex;align-items:center;justify-content:center;gap:3px;font-size:10px;font-weight:700;white-space:nowrap;background:var(--card);border-top:1px solid var(--line);z-index:2}
   .ex .o{color:var(--accent2)} .ex .x{color:var(--muted)}
   .ex .lbl{color:var(--muted);font-weight:600}
   .note{text-align:center;font-size:11px;color:var(--muted);margin-top:16px;line-height:1.7}
   @media (max-width:640px){
-    td{height:88px} table{border-spacing:3px} body{padding:10px}
+    td{height:135px} table{border-spacing:3px} body{padding:10px}
     .dnum{font-size:10px} .ex{font-size:9px}
   }
 </style>
@@ -137,5 +137,21 @@
     ※写真は軽く縮小して埋め込むので、ひと月ぶん貼っても重くなりすぎません。
   </div>
 </div>
+<div id="lb" onclick="this.style.display='none';document.getElementById('lbImg').src='';" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;align-items:center;justify-content:center;padding:14px;cursor:zoom-out">
+  <img id="lbImg" alt="" style="max-width:100%;max-height:92vh;border-radius:14px;box-shadow:0 10px 50px rgba(0,0,0,.6)">
+</div>
+<script>
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(t&&t.tagName==='IMG'&&t.closest&&t.closest('.photo')){
+    var lb=document.getElementById('lb');
+    document.getElementById('lbImg').src=t.src;
+    lb.style.display='flex';
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){var lb=document.getElementById('lb');lb.style.display='none';document.getElementById('lbImg').src='';}
+});
+</script>
 </body>
 </html>
